@@ -66,8 +66,3 @@ build-iPhoneSimulator/
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-# Aux
-organizations_controller copy.rb
-organization_serializer copy.rb
-organizations_serializer copy.rb
-paginable copy.rb

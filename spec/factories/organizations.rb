@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: organizations
@@ -19,14 +21,15 @@
 #  index_organizations_on_discarded_at  (discarded_at)
 #  index_organizations_on_email         (email) UNIQUE
 #
+
 FactoryBot.define do
   factory :organization do
-    name { "MyString" }
-    address { "MyString" }
+    name { 'MyString' }
+    address { 'MyString' }
     phone { 1 }
-    email { "MyString" }
-    welcome_text { "MyText" }
-    about_us_text { "MyString" }
-    image_url { "MyString" }
+    email { 'MyString' }
+    welcome_text { 'MyText' }
+    about_us_text { 'MyString' }
+    image_url { 'MyString' }
   end
 end
