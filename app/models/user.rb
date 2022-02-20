@@ -17,20 +17,17 @@
 # Indexes
 #
 #  index_users_on_discarded_at  (discarded_at)
+#  index_users_on_email         (email) UNIQUE
 #
 class User < ApplicationRecord
   # include app/models/concerns/deletable.rb helper
   include Discard::Model
   has_one :role, dependent: :destroy
-
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true, uniqueness: true
-
   validates :last_name, presence: true,
                         length: { in: 2..15 }
-
   validates :first_name, presence: true,
                          length: { in: 2..15 }
-
   validates :password, presence: true,
                        length: { minimum: 6 }
 end

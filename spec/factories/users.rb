@@ -17,12 +17,13 @@
 # Indexes
 #
 #  index_users_on_discarded_at  (discarded_at)
+#  index_users_on_email         (email) UNIQUE
 #
 FactoryBot.define do
   factory :user do
-    first_name { 'example name' }
-    last_name { 'examplelastname' }
-    password { 'example password' }
-    email { 'example@email.com' }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    password { Faker::Internet.password(min_length: 6) }
+    email { Faker::Internet.email }
   end
 end

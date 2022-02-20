@@ -17,6 +17,7 @@
 # Indexes
 #
 #  index_users_on_discarded_at  (discarded_at)
+#  index_users_on_email         (email) UNIQUE
 #
 require 'rails_helper'
 
@@ -34,57 +35,18 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context 'with invalid attributes' do
-    it 'returns failure when email is missing' do
-      user = build(:user, email: '')
-      expect(user).not_to be_valid
+  context 'with model, test validations' do
+    context 'with attribute, validate presence' do
+      it { is_expected.to validate_presence_of(:email) }
+      it { is_expected.to validate_presence_of(:first_name) }
+      it { is_expected.to validate_presence_of(:last_name) }
+      it { is_expected.to validate_presence_of(:password) }
     end
 
-    it 'returns failure when email format is wrong' do
-      user = build(:user, email: 'thisisnotanemail')
-      expect(user).not_to be_valid
-    end
-
-    it 'returns failure when email already exists in db' do
-      user = build(:user, email: 'original@email.com').save
-      user2 = build(:user, email: 'original@email.com')
-      expect(user2).not_to be_valid
-    end
-
-    it 'returns failure when first name is missing' do
-      user = build(:user, first_name: '')
-      expect(user).not_to be_valid
-    end
-
-    it 'returns failure when first name exceeds length' do
-      user = build(:user, first_name: 'sixteencharacter')
-      expect(user).not_to be_valid
-    end
-
-    it "returns failure when first name doesn't reach min lenght" do
-      user = build(:user, first_name: '1')
-    end
-
-    it 'returns failure when last name is missing' do
-      user = build(:user, last_name: '')
-      expect(user).not_to be_valid
-    end
-
-    it 'returns failure when last name exceeds length' do
-      user = build(:user, last_name: 'sixteencharacter')
-      expect(user).not_to be_valid
-    end
-
-    it "returns failure when last name doesn't reach min lenght" do
-      user = build(:user, last_name: '1')
-    end
-
-    it 'returns failure when password is missing' do
-      user = build(:user, password: '')
-    end
-
-    it "returns failure when password doesn't reach min length" do
-      user = build(:user, password: '123')
+    context 'with attribute, validate length' do
+      it { is_expected.to validate_length_of(:first_name) }
+      it { is_expected.to validate_length_of(:last_name) }
+      it { is_expected.to validate_length_of(:password) }
     end
   end
 end
