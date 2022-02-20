@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: announcements
@@ -18,43 +20,43 @@ require 'rails_helper'
 
 RSpec.describe Announcement, type: :model do
   # soft delete tests
-  context 'an undiscarded Announcement' do
+  context 'with an undiscarded Announcement' do
     let(:announcement) { create(:announcement) }
 
     it 'is included in the default scope' do
-      expect(Announcement.all).to eq([announcement])
+      expect(described_class.all).to eq([announcement])
     end
 
     it 'is included in kept scope' do
-      expect(Announcement.kept).to eq([announcement])
+      expect(described_class.kept).to eq([announcement])
     end
 
     it 'is included in undiscarded scope' do
-      expect(Announcement.undiscarded).to eq([announcement])
+      expect(described_class.undiscarded).to eq([announcement])
     end
 
     it 'is not included in discarded scope' do
-      expect(Announcement.discarded).to eq([])
+      expect(described_class.discarded).to eq([])
     end
   end
 
-  context 'discarded Post' do
+  context 'with discarded Announcement' do
     let(:discarded) { create(:discarded) }
 
     it 'is included in the default scope' do
-      expect(Announcement.all).to eq([discarded])
+      expect(described_class.all).to eq([discarded])
     end
 
     it 'is not included in kept scope' do
-      expect(Announcement.kept).to eq([])
+      expect(described_class.kept).to eq([])
     end
 
     it 'is not included in undiscarded scope' do
-      expect(Announcement.undiscarded).to eq([])
+      expect(described_class.undiscarded).to eq([])
     end
 
     it 'is included in discarded scope' do
-      expect(Announcement.discarded).to eq([discarded])
+      expect(described_class.discarded).to eq([discarded])
     end
   end
 
