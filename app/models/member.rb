@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: members
@@ -17,8 +19,8 @@
 #  index_members_on_discarded_at  (discarded_at)
 #
 class Member < ApplicationRecord
-    include Discard::Model
-    has_one_attached :image
-    validates :name, presence: true, length: { minimum: 2}
-    validates :description, length: { maximum: 300 }
+  include Discard::Model
+  has_one_attached :image
+  validates :name, presence: true, length: { minimum: 2 }
+  validates :description, length: { maximum: 300 }
 end

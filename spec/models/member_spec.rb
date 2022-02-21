@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: members
@@ -22,25 +24,24 @@ RSpec.describe Member, type: :model do
   let(:member) do
     FactoryBot.create(:member)
   end
+
   describe '#discard' do
-    it "sets discarded_at" do
-      expect {
+    it 'sets discarded_at' do
+      expect do
         member.discard
-      }.to change { member.discarded_at }
+      end.to change(member, :discarded_at)
     end
 
-    it "sets discarded_at in DB" do
-      expect {
+    it 'sets discarded_at in DB' do
+      expect do
         member.discard
-      }.to change { member.reload.discarded_at }
+      end.to change { member.reload.discarded_at }
     end
-  end  
-  
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_length_of(:name) }
     it { is_expected.to validate_length_of(:description) }
-
-
   end
 end
