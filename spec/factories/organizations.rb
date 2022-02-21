@@ -23,13 +23,16 @@
 #
 
 FactoryBot.define do
-  factory :organization do
-    name { 'MyString' }
-    address { 'MyString' }
-    phone { 1 }
-    email { 'MyString' }
-    welcome_text { 'MyText' }
-    about_us_text { 'MyString' }
-    image_url { 'MyString' }
+  factory :target, class: 'Organization' do
+    name { Faker::TvShows::BreakingBad.character }
+    address { Faker::Address.street_address }
+    phone { Faker::Number.number(digits: 5) }
+    email { Faker::Internet.email }
+    welcome_text { Faker::Books::Lovecraft.sentence }
+    about_us_text { Faker::Books::Lovecraft.sentence }
+    image_url { Faker::Internet.url }
+  end
+  trait :discarded do
+    discarded_at { rand(1..1_000_000).days.ago }
   end
 end
