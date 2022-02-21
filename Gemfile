@@ -13,7 +13,7 @@ gem 'dotenv-rails', '~> 2.7', '>= 2.7.6' # https://rubygems.org/gems/dotenv-rail
 gem 'jsonapi-serializer', '~> 2.2' # https://rubygems.org/gems/jsonapi-serializer
 gem 'pg', '~> 1.1' # https://rubygems.org/gems/pg
 gem 'puma', '~> 5.0' # https://rubygems.org/gems/puma
-
+gem 'discard', '~> 1.2', '>= 1.2.1' #https://rubygems.org/gems/discard
 # gem 'rack-cors' # https://rubygems.org/gems/rack-cors
 
 group :development, :test do
