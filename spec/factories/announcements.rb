@@ -17,15 +17,12 @@
 #  index_announcements_on_discarded_at  (discarded_at)
 #
 FactoryBot.define do
-  factory :announcement do
+  factory :target, class: 'Announcement' do
     name { Faker::TvShows::BreakingBad.episode }
     content { Faker::Quote.famous_last_words }
     image_url { Faker::Internet.url }
   end
-  factory :discarded, class: 'Announcement' do
-    name { Faker::TvShows::BreakingBad.episode }
-    content { Faker::Quote.famous_last_words }
-    image_url { Faker::Internet.url }
+  trait :discarded do
     discarded_at { rand(1..1_000_000).days.ago }
   end
 end
