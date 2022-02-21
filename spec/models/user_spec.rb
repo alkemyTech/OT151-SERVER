@@ -35,18 +35,13 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context 'with model, test validations' do
-    context 'with attribute, validate presence' do
-      it { is_expected.to validate_presence_of(:email) }
-      it { is_expected.to validate_presence_of(:first_name) }
-      it { is_expected.to validate_presence_of(:last_name) }
-      it { is_expected.to validate_presence_of(:password) }
-    end
-
-    context 'with attribute, validate length' do
-      it { is_expected.to validate_length_of(:first_name) }
-      it { is_expected.to validate_length_of(:last_name) }
-      it { is_expected.to validate_length_of(:password) }
-    end
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:first_name) }
+    it { is_expected.to validate_presence_of(:last_name) }
+    it { is_expected.to validate_presence_of(:password) }
+    it { is_expected.to validate_length_of(:first_name) }
+    it { is_expected.to validate_length_of(:last_name) }
+    it { is_expected.to validate_length_of(:password) }
   end
 end
