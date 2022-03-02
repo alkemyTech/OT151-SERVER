@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post 'auth/register', to: 'users#create'
       post '/auth/login', to: 'authentication#login'
       get '/*a', to: 'application#not_found'
+      delete '/categories/:id', to: 'categories#destroy'
     end
   end
 end
