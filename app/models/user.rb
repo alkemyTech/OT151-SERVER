@@ -29,7 +29,7 @@ class User < ApplicationRecord
 
   include Discard::Model
   belongs_to :role
-  has_one_attached :image
+  has_one_attached :image, service: :s3
   validates :email, presence: true,
                     format: { with: URI::MailTo::EMAIL_REGEXP,
                               message: 'Must be a valid email address' },

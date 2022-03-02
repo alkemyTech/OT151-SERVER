@@ -20,7 +20,7 @@
 #
 class Member < ApplicationRecord
   include Discard::Model
-  has_one_attached :image
+  has_one_attached :image, service: :s3
   validates :name, presence: true, length: { minimum: 2 }
   validates :description, length: { maximum: 300 }
 end

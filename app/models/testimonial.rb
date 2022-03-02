@@ -17,7 +17,7 @@
 #
 class Testimonial < ApplicationRecord
   include Discard::Model
-  has_one_attached :image
+  has_one_attached :image, service: :s3
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :content, presence: true, length: { minimum: 5 }

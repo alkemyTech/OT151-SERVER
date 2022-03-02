@@ -18,7 +18,7 @@
 class Category < ApplicationRecord
   include Discard::Model
 
-  has_one_attached :image
+  has_one_attached :image, service: :s3
 
   has_many :announcements, dependent: :destroy
 

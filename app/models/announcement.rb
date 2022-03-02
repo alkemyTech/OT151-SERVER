@@ -24,7 +24,7 @@
 class Announcement < ApplicationRecord
   include Discard::Model
 
-  has_one_attached :image
+  has_one_attached :image, service: :s3
   belongs_to :category
 
   validates :name, presence: true, length: { minimum: 2 }

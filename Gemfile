@@ -17,6 +17,8 @@ gem 'pg', '~> 1.1' # https://rubygems.org/gems/pg
 gem 'puma', '~> 5.0' # https://rubygems.org/gems/puma
 # gem 'rack-cors' # https://rubygems.org/gems/rack-cors
 gem 'jwt', '~> 2.3'
+gem "gem", "~> 0.0.1.alpha"
+gem "aws-sdk-s3", "~> 1.113", require: false
 
 group :development, :test do
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1' # https://rubygems.org/gems/factory_bot_rails
@@ -46,3 +48,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
