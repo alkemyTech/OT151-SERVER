@@ -3,9 +3,9 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :authenticate_with_token!, only: %i[update]
-      before_action :authorize_request, except: :create
-      before_action :find_user, except: %i[create]
+      before_action :authenticate_with_token!, only: %i[update destroy]
+      before_action :authorize_request, except: %i[create destroy]
+      before_action :find_user, except: %i[create destroy]
       before_action :admin, only: %i[index]
 
       def index
@@ -17,7 +17,6 @@ module Api
         @user = User.new(user_params)
         @user.role = Role.create_or_find_by(name: 'user', description: 'usuario de la aplicacion')
         if @user.save
-          UserNotifierMailer.send_signup_email(@user).deliver
           render json: @user, status: :created
         else
           render json: @user.errors, status: :unprocessable_entity
@@ -29,6 +28,15 @@ module Api
           render json: UserSerializer.new(@user).serializable_hash.to_json
         else
           render json: @user.errors, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        if @user.discarded?
+          render json: { errors: @user.errors.full_messages }
+        else
+          @user.discard
+          render json: { message: 'User deleted' }, status: :no_content
         end
       end
 
