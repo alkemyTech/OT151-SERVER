@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :categories, only: %i[create update destroy]
       post '/organization/public', to: 'organizations#create'
       resources :users, only: [:update]
+      resources :announcements, only: %i[show]
     end
   end
 end
