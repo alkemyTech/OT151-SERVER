@@ -5,6 +5,11 @@ module Api
     class CategoriesController < ApplicationController
       before_action :authenticate_with_token!, only: %i[update]
       before_action :admin?, only: %i[update]
+      before_action :set_category, only: %i[show]
+
+      def show
+        render json: serialize_category, status: :ok
+      end
 
       def create
         @category = Category.create!(category_params)
@@ -30,6 +35,12 @@ module Api
       end
 
       private
+
+      def set_category
+        @category = Category.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: "Category not found '#{params[:id]}'" }, status: :not_found
+      end
 
       def category_params
         params.require(:category).permit(:name, :description)
