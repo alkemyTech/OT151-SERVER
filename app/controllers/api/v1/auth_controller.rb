@@ -13,6 +13,14 @@ module Api
         render json: serialize_user, status: :created
       end
 
+      def show
+        if @current_user
+          render json: serialize_user, status: :ok
+        else
+          render json: { ok: false }
+        end
+      end
+
       private
 
       def auth_user
