@@ -3,7 +3,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :authenticate_with_token!, only: %i[update]
+      before_action :authenticate_with_token!, only: %i[update destroy]
       before_action :authorize_request, except: :create
       before_action :find_user, except: %i[create]
       before_action :admin, only: %i[index]
@@ -30,6 +30,15 @@ module Api
           render json: UserSerializer.new(@user).serializable_hash.to_json
         else
           render json: @user.errors, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        if @current_user.discarded?
+          render json: { errors: @user.errors.full_messages }
+        else
+          @current_user.discard
+          render json: { message: 'User deleted' }, status: :no_content
         end
       end
 
