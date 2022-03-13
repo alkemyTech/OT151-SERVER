@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :categories, only: %i[create update destroy]
       post '/organization/public', to: 'organizations#create'
       resources :users, only: %i[:update index]
-    end
+      put '/news/:id', to: 'announcements#put'
+        end
   end
 end
