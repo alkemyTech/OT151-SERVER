@@ -19,12 +19,15 @@ gem 'kaminari', '~> 1.2', '>= 1.2.2' # https://rubygems.org/gems/kaminari
 gem 'pg', '~> 1.1' # https://rubygems.org/gems/pg
 gem 'puma', '~> 5.0' # https://rubygems.org/gems/puma
 # gem 'rack-cors' # https://rubygems.org/gems/rack-cors
+gem 'rswag-api' # https://rubygems.org/gems/rswag-api
+gem 'rswag-ui' # https://rubygems.org/gems/rswag-ui
 
 group :development, :test do
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1' # https://rubygems.org/gems/factory_bot_rails
   gem 'pry-byebug', '~> 3.9', platform: :mri # https://rubygems.org/gems/pry-byebug
   gem 'pry-rails', '~> 0.3.9' # https://rubygems.org/gems/pry-rails
   gem 'rspec-rails', '~> 4.1' # https://rubygems.org/gems/rspec-rails
+  gem 'rswag-specs' # https://rubygems.org/gems/rswag-specs
 end
 
 group :development do

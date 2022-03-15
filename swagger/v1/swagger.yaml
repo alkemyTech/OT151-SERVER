@@ -1,0 +1,61 @@
+---
+swagger: '2.0'
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/testimonials":
+    post:
+      summary: Create a testimonial
+      tags:
+      - Testimonials
+      consumes:
+      - application/json
+      security:
+      - JWT: {}
+      parameters:
+      - name: authorization
+        in: header
+        type: apiKey
+      - name: params
+        in: body
+        schema:
+          type: object
+          properties:
+            testimonial:
+              type: object
+              properties:
+                name:
+                  type: string
+                content:
+                  type: text
+              required:
+              - name
+              - description
+          required:
+          - testimonial
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Testimonial created
+          examples:
+            application/json:
+              data:
+                id: '9'
+                type: testimonial
+                attributes:
+                  name: Archie Reilly
+                  content: Incidunt sequi a consequatur.
+        '422':
+          description: Testimonial creation failed for parameter missing
+          examples:
+            application/json:
+              message: 'Validation failed: Name can''t be blank, Name is too short
+                (minimum is 2 characters), Content can''t be blank, Content is too
+                short (minimum is 5 characters)'
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
