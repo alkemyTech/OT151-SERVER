@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       post '/organization/public', to: 'organizations#create'
       post 'auth/login', to: 'auth#create'
       post 'auth/register', to: 'users#create'
-      resources :announcements, only: %i[show, update, create]
+      resources :announcements, only: %i[show update create]
       resources :categories, only: %i[show create update destroy]
       resources :members, only: %i[index]
       resources :slides, only: %i[index]
