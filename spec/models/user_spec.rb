@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     it { is_expected.not_to allow_value('').for(:email) }
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
-    it { is_expected.to validate_presence_of(:password) }
+    it { is_expected.to have_secure_password(:password) }
     it { is_expected.to validate_length_of(:first_name).is_at_least(2).is_at_most(15) }
     it { is_expected.to validate_length_of(:last_name).is_at_least(2).is_at_most(15) }
     it { is_expected.to validate_length_of(:password).is_at_least(6) }
@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:first_name).of_type(:string).with_options(null: false) }
     it { is_expected.to have_db_column(:email).of_type(:string).with_options(null: false) }
     it { is_expected.to have_db_column(:last_name).of_type(:string).with_options(null: false) }
-    it { is_expected.to have_db_column(:password).of_type(:string).with_options(null: false) }
+    it { is_expected.to have_db_column(:password_digest).of_type(:string).with_options(null: false) }
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:discarded_at).of_type(:datetime) }
