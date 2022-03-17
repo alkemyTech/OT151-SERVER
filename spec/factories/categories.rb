@@ -19,13 +19,11 @@ FactoryBot.define do
   factory :category do
     name { Faker::FunnyName.two_word_name }
     description { Faker::Company.catch_phrase }
-  end
-
-  # after(:build) do |category|
-  #   category.image.attach(
-  #     io: File.open(Rails.root.join('spec/factories_files/user_icon.jpeg')),
-  #     filename: 'user_icon.jpeg',
-  #     content_type: 'image/jpeg'
-  #   )
-  # end
+    
+    
+    trait :with_image do
+      image { fixture_file_upload(Rails.root.join('spec', 
+        'factories_files', 'test.png'), 'image/png') }
+      end
+    end
 end
