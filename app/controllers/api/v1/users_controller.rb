@@ -17,8 +17,8 @@ module Api
       def create
         @user = User.new(user_params)
         @user.role = Role.find_or_create_by!(name: 'user', description: 'usuario de la aplicacion')
-        token = JsonWebToken.encode(user_id: @user.id)
         @user.save!
+        token = JsonWebToken.encode(user_id: @user.id)
         UserWelcome.with(user: @user).send_user_welcome.deliver_later
         render json: { serialize_user: serialize_user, token: token }, status: :created
       end
