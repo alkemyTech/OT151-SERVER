@@ -28,17 +28,18 @@ FactoryBot.define do
     content { Faker::Books::Lovecraft.sentence }
     announcement_type { Faker::Lorem.word }
 
+    association :category
+
     trait :discarded do
       discarded_at { rand(1..1_000_000).days.ago }
     end
 
-    after(:build) do |announcement|
-      announcement.image.attach(
-        io: File.open(Rails.root.join('spec/factories_files/test.png')),
-        filename: 'test.png', content_type: 'image/jpeg'
-      )
+    trait :with_image do
+      after :create do |announcement|
+        file_path = Rails.root.join('spec/factories_files/test.png'), 'image/png'
+        file = fixture_file_upload(file_path, 'image/png')
+        announcement.image.attach(file)
+      end
     end
-
-    category
   end
 end
