@@ -6,6 +6,8 @@ class SlidesSerializer
   attribute :image do |object|
     return object.image_url if Rails.env.production?
 
-    ActiveStorage::Blob.service.path_for(object.image.key) if Rails.env.development?
+    if Rails.env.development? || Rails.env.test?
+      ActiveStorage::Blob.service.path_for(object.image.key)
+    end
   end
 end
