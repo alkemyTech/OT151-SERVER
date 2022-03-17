@@ -53,7 +53,7 @@ RSpec.describe '/users', type: :request do
         post api_v1_auth_register_url,
              params: { user: invalid_attributes },
              headers: valid_headers, as: :json
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq('application/json; charset=utf-8')
       end
     end
   end
