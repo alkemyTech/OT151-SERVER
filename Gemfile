@@ -18,6 +18,7 @@ gem 'jwt', '~> 2.3' # https://rubygems.org/gems/jwt
 gem 'kaminari', '~> 1.2', '>= 1.2.2' # https://rubygems.org/gems/kaminari
 gem 'pg', '~> 1.1' # https://rubygems.org/gems/pg
 gem 'puma', '~> 5.0' # https://rubygems.org/gems/puma
+gem 'rswag' # https://rubygems.org/gems/rswag
 gem 'rswag-api' # https://rubygems.org/gems/rswag-api
 gem 'rswag-ui' # https://rubygems.org/gems/rswag-ui
 # gem 'rack-cors' # https://rubygems.org/gems/rack-cors

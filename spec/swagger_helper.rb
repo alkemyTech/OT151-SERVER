@@ -50,31 +50,30 @@ RSpec.configure do |config|
             category_id: { type: :integer, example: '1' }
           }
         },
+        Member: {
+          type: 'object',
+          properties: {
+            id: { type: :integer, example: '100' },
+            name: { type: :string, example: 'test' },
+            description: { type: :string, example: 'test' },
+            image: { type: :string, example: '/img/file.jpg' }
+          }
+        },
         securityDefinitions: {
           JWT: {
             description: 'Json Web Token',
             name: 'Authorization',
             in: :header,
             type: :apiKey
-<<<<<<< HEAD
           },
           properties: {
             token: { type: :string, example: "#{JsonWebToken.encode({ user_id: 0 })}" }
-        }
-=======
-            },
-            properties: {
-              token: { type: :string, example: "#{JsonWebToken.encode({ user_id: 0 })}" }
           }
->>>>>>> 6d9567d (feat/OT151-58: add slides doc)
         }
       }
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6d9567d (feat/OT151-58: add slides doc)
+}
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
   # The swagger_docs configuration option has the filename including format in
   # the key, this may want to be changed to avoid putting yaml in json files.

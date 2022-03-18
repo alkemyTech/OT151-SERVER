@@ -312,6 +312,7 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.1)
   rails_best_practices (~> 1.20)
   rspec-rails (~> 4.1)
+  rswag
   rswag-api
   rswag-specs
   rswag-ui
