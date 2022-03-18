@@ -4,14 +4,14 @@
 #
 # Table name: announcements
 #
-#  id           :bigint           not null, primary key
-#  content      :text             not null
-#  discarded_at :datetime
-#  name         :string           not null
-#  type         :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  category_id  :bigint           not null
+#  id                :bigint           not null, primary key
+#  announcement_type :string           not null
+#  content           :text             not null
+#  discarded_at      :datetime
+#  name              :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  category_id       :bigint           not null
 #
 # Indexes
 #

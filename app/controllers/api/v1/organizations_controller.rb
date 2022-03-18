@@ -3,6 +3,9 @@
 module Api
   module V1
     class OrganizationsController < ApplicationController
+      before_action :authenticate_with_token!, only: %i[create]
+      before_action :admin, only: %i[create]
+
       # POST api/v1/organization/public
       def create
         @organization = Organization.create!(organization_params)
