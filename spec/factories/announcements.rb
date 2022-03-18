@@ -4,14 +4,14 @@
 #
 # Table name: announcements
 #
-#  id           :bigint           not null, primary key
-#  content      :text             not null
-#  discarded_at :datetime
-#  name         :string           not null
-#  type         :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  category_id  :bigint           not null
+#  id                :bigint           not null, primary key
+#  announcement_type :string           not null
+#  content           :text             not null
+#  discarded_at      :datetime
+#  name              :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  category_id       :bigint           not null
 #
 # Indexes
 #
@@ -50,10 +50,11 @@ FactoryBot.define do
   factory :announcement do
     name { Faker::TvShows::BreakingBad.character }
     content { Faker::Books::Lovecraft.sentence }
-    type { Faker::Lorem.word }
     category_id do
       Category.create_or_find_by(name: 'news category', description: 'news category description').id
     end
+    announcement_type { Faker::Lorem.word }
+
     trait :discarded do
       discarded_at { rand(1..1_000_000).days.ago }
     end

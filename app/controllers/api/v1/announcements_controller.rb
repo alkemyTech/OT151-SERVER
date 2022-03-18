@@ -13,7 +13,7 @@ module Api
 
       def create
         @announcement = Announcement.new(announcement_params)
-        @announcement.type = 'news'
+        @announcement.announcement_type = 'news'
         @announcement.upload_image(params[:announcement][:image])
         @announcement.save!
         render json: serialize_announcement, status: :created
