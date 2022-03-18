@@ -3,9 +3,9 @@
 module Api
   module V1
     class AnnouncementsController < ApplicationController
-      before_action :authenticate_with_token!, only: %i[update]
-      #before_action :admin, only: %i[create]
-      before_action :set_announcement, only: %i[update]
+      before_action :authenticate_with_token!, only: %i[update create]
+      before_action :admin, only: %i[create]
+      before_action :set_announcement, only: %i[update show]
 
       def show
         render json: serialize_announcement, status: :ok
@@ -17,7 +17,6 @@ module Api
         @announcement.upload_image(params[:announcement][:image])
         @announcement.save!
         render json: serialize_announcement, status: :created
-
       end
 
       def update
