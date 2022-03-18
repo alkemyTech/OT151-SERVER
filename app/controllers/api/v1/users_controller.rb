@@ -3,7 +3,6 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :authenticate_with_token!, except: %i[create]
       before_action :find_user, except: %i[index create]
       before_action :admin, only: %i[index]
       before_action :ownership?, except: %i[create]
@@ -17,10 +16,9 @@ module Api
       def create
         @user = User.new(user_params)
         @user.role = Role.find_or_create_by!(name: 'user', description: 'usuario de la aplicacion')
-        token = JsonWebToken.encode(user_id: @user.id)
         @user.save!
         UserWelcome.with(user: @user).send_user_welcome.deliver_later
-        render json: { serialize_user: serialize_user, token: token }, status: :created
+        render json: serialize_user, status: :created
       end
 
       def update

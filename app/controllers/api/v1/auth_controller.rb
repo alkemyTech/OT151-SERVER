@@ -4,41 +4,34 @@ module Api
   module V1
     class AuthController < ApplicationController
       before_action :authenticate_with_token!, only: [:show]
-      before_action :login_params, only: [:create]
-      before_action :user, only: [:create]
 
       # POST api/v1/auth/login
       def create
-        raise AuthenticationError unless auth_user
-
-        render json: serialize_user, status: :created
+        @user = User.find_by!(email: user_params[:email])
+        if @user&.authenticate(user_params[:password])
+          render json: {
+            token: JsonWebToken.encode(user_id: @user.id),
+            user: serialize_user(@user)
+          }, status: :created
+        else
+          head :unauthorized
+        end
       end
 
       # GET api/v1/auth/me
       def show
-        if @current_user
-          render json: serialize_user, status: :ok
-        else
-          render json: { ok: false }
-        end
+        user = @current_user
+        render json: serialize_user(user), status: :ok
       end
 
       private
 
-      def auth_user
-        @user.authenticate(params[:password])
+      def user_params
+        params.permit(:email, :password)
       end
 
-      def login_params
-        params.require(%i[email password])
-      end
-
-      def user
-        @user = User.find_by!(email: params.require(:email))
-      end
-
-      def serialize_user
-        UserSerializer.new(@user).serializable_hash.to_json
+      def serialize_user(*args)
+        UserSerializer.new(*args).serializable_hash.to_json
       end
     end
   end
