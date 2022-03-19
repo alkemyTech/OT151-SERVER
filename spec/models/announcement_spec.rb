@@ -49,12 +49,7 @@ RSpec.describe Announcement, type: :model do
     it { is_expected.to have_db_column(:content).of_type(:text).with_options(null: false) }
     it { is_expected.to have_db_column(:discarded_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:name).of_type(:string).with_options(null: false) }
-
-    it {
-      is_expected.to have_db_column(:announcement_type)
-        .of_type(:string).with_options(null: false)
-    }
-
+    it { is_expected.to have_db_column(:announcement_type).of_type(:string).with_options(null: false) }
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
   end
