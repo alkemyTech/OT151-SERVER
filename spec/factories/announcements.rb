@@ -30,6 +30,10 @@ FactoryBot.define do
 
     association :category
 
+    category_id do
+      Category.create_or_find_by(name: 'news category', description: 'news category description').id
+    end
+
     trait :discarded do
       discarded_at { rand(1..1_000_000).days.ago }
     end

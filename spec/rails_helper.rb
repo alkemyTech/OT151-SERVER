@@ -35,7 +35,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-
 FactoryBot::SyntaxRunner.class_eval do
   include ActionDispatch::TestProcess
 end
