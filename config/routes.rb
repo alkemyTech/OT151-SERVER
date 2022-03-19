@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       post 'auth/register', to: 'users#create'
       resources :announcements, only: %i[show update create]
       resources :categories, only: %i[show create update destroy]
-      resources :members, only: %i[index]
+      resources :members, only: %i[index create]
       resources :slides, only: %i[index]
       resources :testimonials, only: %i[index create]
       resources :users, only: %i[index update destroy]

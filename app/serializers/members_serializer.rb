@@ -2,7 +2,7 @@
 
 class MembersSerializer
   include JSONAPI::Serializer
-  attributes :name, :description
+  attributes :name, :description, :facebook_url, :linkedin_url, :instagram_url
   attribute :image do |object|
     return object.image_url if Rails.env.production?
 
