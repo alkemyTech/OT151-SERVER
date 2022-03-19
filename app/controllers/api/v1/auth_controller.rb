@@ -11,13 +11,14 @@ module Api
       def create
         raise AuthenticationError unless auth_user
 
-        render json: serialize_user, status: :created
+        @options = { meta: { jwt: JsonWebToken.encode(user_id: @user.id) } }
+        render json: serialize_user(@user, @options), status: :created
       end
 
       # GET api/v1/auth/me
       def show
         if @current_user
-          render json: serialize_user, status: :ok
+          render json: serialize_user(@current_user), status: :ok
         else
           render json: { ok: false }
         end
@@ -37,8 +38,8 @@ module Api
         @user = User.find_by!(email: params.require(:email))
       end
 
-      def serialize_user
-        UserSerializer.new(@user).serializable_hash.to_json
+      def serialize_user(*args)
+        UserSerializer.new(*args).serializable_hash.to_json
       end
     end
   end
