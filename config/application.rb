@@ -44,6 +44,4 @@ module OT151Server
       end
     end
   end
-  end
-end
 end

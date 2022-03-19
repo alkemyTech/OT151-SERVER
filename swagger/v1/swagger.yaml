@@ -5,6 +5,50 @@ info:
   version: v1
 paths:
   "/api/v1/members":
+    post:
+      summary: Creates members
+      tags:
+      - Members
+      consumes:
+      - application/json
+      security:
+      - JWT: {}
+      parameters:
+      - name: Authorization
+        in: header
+        type: apiKey
+      - name: params
+        in: body
+        schema:
+          type: object
+          properties:
+            member:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: text
+                facebook_url:
+                  type: string
+                linkedin_url:
+                  type: string
+                instagram_url:
+                  type: string
+                image:
+                  type: string
+              required:
+              - name
+              - description
+          required:
+          - member
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Member created
+        '422':
+          description: Member creation failed for parameter missing
     get:
       summary: Indexes members
       tags:
