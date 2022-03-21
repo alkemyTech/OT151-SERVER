@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       post 'auth/login', to: 'auth#create'
       post 'auth/register', to: 'users#create'
       resources :announcements, only: %i[show update create]
+      resources :announcements, :shallow => true do 
+        resources :comments, only: :create
+      end
       resources :categories, only: %i[show create update destroy]
       resources :members, only: %i[index]
       resources :slides, only: %i[index]
