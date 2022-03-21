@@ -50,13 +50,24 @@ RSpec.configure do |config|
             category_id: { type: :integer, example: '1' }
           }
         },
+        Testimonial: {
+          type: 'object',
+          properties: {
+            id: { type: :integer, example: '1' },
+            name: { type: :string, example: 'name' },
+            description: { type: :string, example: 'description' },
+            announcement_type: { type: :string, example: 'announcement_type' },
+            category_id: { type: :integer, example: '1' }
+          }
+        },
         Member: {
           type: 'object',
           properties: {
             id: { type: :integer, example: '100' },
             name: { type: :string, example: 'test' },
             description: { type: :string, example: 'test' },
-            image: { type: :string, example: '/img/file.jpg' }
+            image: { type: :string, example: '/img/file.jpg' },
+            content: { type: :string, example: 'description' }
           }
         },
         securityDefinitions: {
@@ -67,7 +78,7 @@ RSpec.configure do |config|
             type: :apiKey
           },
           properties: {
-            token: { type: :string, example: "#{JsonWebToken.encode({ user_id: 0 })}" }
+            token: { type: :string, example: JsonWebToken.encode({ user_id: 0 }).to_s }
           }
         }
       }
