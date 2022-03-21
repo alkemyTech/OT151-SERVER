@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         resources :comments, only: :create
       end
       resources :categories, only: %i[show create update destroy]
-      resources :members, only: %i[index]
+      resources :members, only: %i[index create]
       resources :slides, only: %i[index]
       resources :testimonials, only: %i[index create]
       resources :users, only: %i[index update destroy]
