@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post 'auth/login', to: 'auth#create'
       post 'auth/register', to: 'users#create'
       resources :announcements, only: %i[show update create]
-      resources :announcements, :shallow => true do 
+      resources :announcements, :shallow => true do
         resources :comments, only: :create
       end
       resources :categories, only: %i[show create update destroy]
