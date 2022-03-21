@@ -24,8 +24,11 @@ module Api
       end
 
       def update
+        
+        binding.pry
+        
         @user.update!(user_params)
-        render json: UserSerializer.new(@user).serializable_hash.to_json
+        render json: serialize_user, status: :ok
       end
 
       def destroy
@@ -36,7 +39,7 @@ module Api
 
       private
 
-      def find_user
+      def find_user        
         @user = User.find(params[:id])
       end
 

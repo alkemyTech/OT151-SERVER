@@ -4,6 +4,168 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/announcements":
+    post:
+      summary: Create a announcement
+      tags:
+      - Announcements
+      consumes:
+      - application/json
+      security:
+      - JWT: {}
+      parameters:
+      - name: Authorization
+        in: header
+        type: apiKey
+      - name: params
+        in: body
+        schema:
+          type: object
+          properties:
+            announcement:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: text
+                announcement_type:
+                  type: string
+                image:
+                  type: string
+                category_id:
+                  type: integer
+              required:
+              - name
+              - description
+              - category_id
+          required:
+          - announcement
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Announcement created
+          examples:
+            application/json:
+              data:
+                id: '171'
+                type: announcement
+                attributes:
+                  name: Ted Beneke
+                  content: Gibbous furtive dank gambrel singular fainted.
+                  announcement_type: news
+                relationships:
+                  category:
+                    data:
+                      id: '406'
+                      type: category
+        '422':
+          description: Announcement creation failed for parameter missing
+          examples:
+            application/json:
+              message: 'Validation failed: Category must exist, Name can''t be blank,
+                Name is too short (minimum is 2 characters), Content can''t be blank,
+                Content is too short (minimum is 2 characters), Image no image file
+                added'
+  "/api/v1/announcements/{id}":
+    get:
+      summary: Retrieves a announcement.
+      tags:
+      - Announcements
+      description: a announcement
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: Announcement found
+          examples:
+            application/json:
+              data:
+                id: '172'
+                type: announcement
+                attributes:
+                  name: Hank Schrader
+                  content: Unmentionable charnel blasphemous unnamable gibbering.
+                  announcement_type: distinctio
+                relationships:
+                  category:
+                    data:
+                      id: '408'
+                      type: category
+        '404':
+          description: Announcement not found
+          examples:
+            application/json:
+              message: Couldn't find Announcement with 'id'=-1
+    put:
+      summary: Update a announcement
+      tags:
+      - Announcements
+      consumes:
+      - application/json
+      security:
+      - JWT: {}
+      parameters:
+      - name: Authorization
+        in: header
+        type: apiKey
+      - name: id
+        in: path
+        type: string
+        required: true
+      - name: params
+        in: body
+        schema:
+          type: object
+          properties:
+            announcement:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                announcement_type:
+                  type: string
+                category_id:
+                  type: integer
+              required:
+              - name
+              - description
+              - category_id
+          required:
+          - announcement
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Announcement Updated
+          examples:
+            application/json:
+              data:
+                id: '173'
+                type: announcement
+                attributes:
+                  name: Marie Schrader
+                  content: Abnormal madness spectral unutterable cat iridescence amorphous.
+                  announcement_type: ipsa
+                relationships:
+                  category:
+                    data:
+                      id: '411'
+                      type: category
+        '422':
+          description: Announcement creation failed for parameter missing
+          examples:
+            application/json:
+              message: 'Validation failed: Name can''t be blank, Name is too short
+                (minimum is 2 characters)'
   "/api/v1/members":
     post:
       summary: Creates members
@@ -47,8 +209,24 @@ paths:
       responses:
         '201':
           description: Member created
+          examples:
+            application/json:
+              data:
+                id: '144'
+                type: members
+                attributes:
+                  name: Marylyn D'Amore
+                  description: I went the distance.
+                  facebook_url: http://facebook.com/marleen.kerluke
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/shelton_skiles
+                  image: 
         '422':
           description: Member creation failed for parameter missing
+          examples:
+            application/json:
+              message: 'Validation failed: Name can''t be blank, Name is too short
+                (minimum is 2 characters)'
     get:
       summary: Indexes members
       tags:
@@ -65,24 +243,725 @@ paths:
                 type: object
                 items:
                   "$ref": "#/definitions/Member"
+          examples:
+            application/json:
+              data:
+              - id: '1'
+                type: members
+                attributes:
+                  name: Erich Hayes
+                  description: Maxime rerum praesentium. Voluptates non molestiae.
+                    Enim sed occaecati.
+                  facebook_url: http://facebook.com/sabina_moore
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/tenesha_mohr
+                  image: 
+              - id: '2'
+                type: members
+                attributes:
+                  name: Andree Kuhn
+                  description: Quibusdam neque illo. Et ullam quo. Possimus voluptatem
+                    laudantium.
+                  facebook_url: http://facebook.com/lida.rath
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/yulanda
+                  image: 
+              - id: '3'
+                type: members
+                attributes:
+                  name: Ricardo Douglas
+                  description: Voluptas nam labore. Repellendus amet id. Mollitia
+                    autem consequuntur.
+                  facebook_url: http://facebook.com/refugio_treutel
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/tijuana.parker
+                  image: 
+              - id: '4'
+                type: members
+                attributes:
+                  name: Tracy Welch
+                  description: Saepe et et. Quis veritatis reiciendis. Voluptates
+                    ut similique.
+                  facebook_url: http://facebook.com/jason
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/donya.frami
+                  image: 
+              - id: '5'
+                type: members
+                attributes:
+                  name: Sena Leuschke
+                  description: Autem et et. Rerum officia excepturi. Culpa recusandae
+                    alias.
+                  facebook_url: http://facebook.com/shaun.kub
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/gavin.stracke
+                  image: 
+              - id: '6'
+                type: members
+                attributes:
+                  name: Dr. Everett Dickens
+                  description: Vero id culpa. Qui incidunt voluptatum. Officia repellendus
+                    earum.
+                  facebook_url: http://facebook.com/ludie
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/lauren
+                  image: 
+              - id: '7'
+                type: members
+                attributes:
+                  name: Phung Pouros
+                  description: Ea fugit quaerat. Et quia amet. Vel iusto sed.
+                  facebook_url: http://facebook.com/amado
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/keenan
+                  image: 
+              - id: '8'
+                type: members
+                attributes:
+                  name: Will Lind PhD
+                  description: Sapiente perspiciatis qui. Sint pariatur non. Quo autem
+                    ipsam.
+                  facebook_url: http://facebook.com/carline
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/cynthia
+                  image: 
+              - id: '9'
+                type: members
+                attributes:
+                  name: Elene Shanahan
+                  description: Unde voluptatem tempora. Eligendi tempora suscipit.
+                    Eius eveniet beatae.
+                  facebook_url: http://facebook.com/sherika_walsh
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/santos
+                  image: 
+              - id: '10'
+                type: members
+                attributes:
+                  name: Lindsey Reichel
+                  description: Sit possimus in. Quidem nulla accusamus. Corporis omnis
+                    in.
+                  facebook_url: http://facebook.com/kermit
+                  linkedin_url: http://linkedin.com/in
+                  instagram_url: http://instagram.com/sunni
+                  image: 
+              links:
+                first: "/api/v1/members?page=1"
+                prev: "/api/v1/members"
+                current: "/api/v1/members?page=1"
+                next: "/api/v1/members?page=2"
+                last: "/api/v1/members?page=16"
+  "/api/v1/slides":
+    get:
+      summary: Fetch slides
+      tags:
+      - Slides
+      produces:
+      - application/json
+      security:
+      - JWT: {}
+      parameters:
+      - name: Authorization
+        in: header
+        type: apiKey
+      responses:
+        '200':
+          description: Slides found
+          schema:
+            type: object
+            properties:
+              slide:
+                type: object
+                items:
+                  "$ref": "#/definitions/Slide"
+          examples:
+            application/json:
+              data:
+              - id: '1'
+                type: slides
+                attributes:
+                  order: 684
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/tb/7n/tb7nc2u4lc22kjqac18cncjrnuh8"
+              - id: '2'
+                type: slides
+                attributes:
+                  order: 970
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/w9/x5/w9x5kc382lshhd5gfx2mywsuujn6"
+              - id: '3'
+                type: slides
+                attributes:
+                  order: 972
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/t8/9m/t89mffduhzyf914fxx5zuu7gsc9j"
+              - id: '4'
+                type: slides
+                attributes:
+                  order: 655
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/t6/8x/t68x86ph6ue5yq0v2a7zz18hzoeb"
+              - id: '5'
+                type: slides
+                attributes:
+                  order: 611
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/8c/5s/8c5swwpqr6lukp57961dwik7kpof"
+              - id: '6'
+                type: slides
+                attributes:
+                  order: 938
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/fo/to/foto0ja1tg7qc3pw6jvi7b8e7s4v"
+              - id: '7'
+                type: slides
+                attributes:
+                  order: 527
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/2n/mx/2nmxrxmc19kdyw7ueffbqkom2w3o"
+              - id: '8'
+                type: slides
+                attributes:
+                  order: 817
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/qd/b1/qdb1gtan3042du1sxbuir6smhxs9"
+              - id: '9'
+                type: slides
+                attributes:
+                  order: 756
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/f3/kw/f3kw4u2nbbga77axamulp6swof39"
+              - id: '10'
+                type: slides
+                attributes:
+                  order: 382
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/io/ux/iouxpi4tm7qn5g9rmsjijtuvq45j"
+              - id: '11'
+                type: slides
+                attributes:
+                  order: 167
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/k7/6g/k76gf2ih5owp5v75ivbpv5wdg0gc"
+              - id: '12'
+                type: slides
+                attributes:
+                  order: 161
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ht/qk/htqkvh88t4ggnfjqdww7xc81fip5"
+              - id: '13'
+                type: slides
+                attributes:
+                  order: 134
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/kd/bq/kdbq5lp66wqbrdl2t9emoqvajqgi"
+              - id: '14'
+                type: slides
+                attributes:
+                  order: 747
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/xm/5d/xm5drp9e0tbuil7mm12l9iqnzexm"
+              - id: '15'
+                type: slides
+                attributes:
+                  order: 910
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/3b/ds/3bdsvud56t2mqzvdhhilyqkf1hh5"
+              - id: '16'
+                type: slides
+                attributes:
+                  order: 785
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/f9/zy/f9zysw7td96jqhv095we6rd5ytzi"
+              - id: '17'
+                type: slides
+                attributes:
+                  order: 285
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/4l/mf/4lmfk6ks90rgiwn3qgurp5dhjm5f"
+              - id: '18'
+                type: slides
+                attributes:
+                  order: 789
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/l6/ih/l6ih6bhcjiv7562hzot2y1oz2bfq"
+              - id: '19'
+                type: slides
+                attributes:
+                  order: 643
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/cy/nk/cynkudb7h4snbgv5zinj8g3df8de"
+              - id: '20'
+                type: slides
+                attributes:
+                  order: 698
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/g5/u7/g5u7rkeqz1x7mhl4ipjq6l0fxxfb"
+              - id: '21'
+                type: slides
+                attributes:
+                  order: 496
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/g4/1c/g41c5xcntbzdjyn1h92cvmz6qzsu"
+              - id: '22'
+                type: slides
+                attributes:
+                  order: 486
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/17/g0/17g00axuqdcbld6ghrlg4854155k"
+              - id: '23'
+                type: slides
+                attributes:
+                  order: 803
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/qd/0u/qd0uubgfzkai77tvlsc86gubwg6y"
+              - id: '24'
+                type: slides
+                attributes:
+                  order: 765
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/vv/ee/vvee29s14l0qoix7a719nz2y59l4"
+              - id: '25'
+                type: slides
+                attributes:
+                  order: 692
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/km/lv/kmlv0sjc6nscfmwidbp6clwkrzfs"
+              - id: '26'
+                type: slides
+                attributes:
+                  order: 778
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/mh/5t/mh5t84z6p5zbuoo6fucrdntyq7hy"
+              - id: '27'
+                type: slides
+                attributes:
+                  order: 160
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/8n/34/8n345w23ad4rdbxrxo96rdbb2dx2"
+              - id: '28'
+                type: slides
+                attributes:
+                  order: 837
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/3p/te/3ptehrm3a7kok2z1ee0vlikuig21"
+              - id: '29'
+                type: slides
+                attributes:
+                  order: 822
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/mb/cm/mbcmn72dsv5po4wt6k4zdbx5c7ps"
+              - id: '30'
+                type: slides
+                attributes:
+                  order: 654
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ry/tv/rytvqk5gdb05871aoc4pcoph2ue0"
+              - id: '31'
+                type: slides
+                attributes:
+                  order: 291
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/om/4p/om4pgdfh37qy6fyn000uq32j2c6r"
+              - id: '32'
+                type: slides
+                attributes:
+                  order: 597
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/gr/zq/grzqxe6cd84f845ni7mt4w0n6rqy"
+              - id: '33'
+                type: slides
+                attributes:
+                  order: 344
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ji/iv/jiivjp0kvjp67f91bhlt9leva4sk"
+              - id: '34'
+                type: slides
+                attributes:
+                  order: 607
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/1m/92/1m92wa4v3qcyf9fzvv9kbx8vyttc"
+              - id: '35'
+                type: slides
+                attributes:
+                  order: 264
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/t1/um/t1umqzvs81j695r7xfqk0rfkw0tn"
+              - id: '36'
+                type: slides
+                attributes:
+                  order: 928
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/p4/lg/p4lg6rcoalyez7u39co0fautmp5m"
+              - id: '37'
+                type: slides
+                attributes:
+                  order: 480
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/cn/tz/cntzpcfaq8ef8buvaza49ajelo3e"
+              - id: '38'
+                type: slides
+                attributes:
+                  order: 966
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/hk/9u/hk9u94dgn5bo0zdqig6r9uhegzfh"
+              - id: '39'
+                type: slides
+                attributes:
+                  order: 436
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/4c/4l/4c4lmy1g3p9ynrcs6plhrdaib0n6"
+              - id: '40'
+                type: slides
+                attributes:
+                  order: 736
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/7x/39/7x39ryjpwnsexadfypz1p2193jg4"
+              - id: '41'
+                type: slides
+                attributes:
+                  order: 116
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/m7/cm/m7cm7jn4wvq83t8vz4uf98xb26vb"
+              - id: '42'
+                type: slides
+                attributes:
+                  order: 110
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ko/id/koidartvp71y9ff61m9eu32w63vo"
+              - id: '43'
+                type: slides
+                attributes:
+                  order: 498
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ox/m0/oxm0f3kze43ughmeq7qh9ejxspwl"
+              - id: '44'
+                type: slides
+                attributes:
+                  order: 954
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/lx/o3/lxo3ywr88fvg1xeswpq7faj25cpe"
+              - id: '45'
+                type: slides
+                attributes:
+                  order: 306
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ba/g5/bag56m400viwv3y138iv32gw491z"
+              - id: '46'
+                type: slides
+                attributes:
+                  order: 562
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/2h/vb/2hvbphnt64w9wxuwx7lsjgpqsqfn"
+              - id: '47'
+                type: slides
+                attributes:
+                  order: 628
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/e9/i4/e9i4glc5pob1mxlj8kazudlozkf2"
+              - id: '48'
+                type: slides
+                attributes:
+                  order: 793
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/t2/5w/t25wu8u2m1wpklvb5gj2ewam3ok0"
+              - id: '49'
+                type: slides
+                attributes:
+                  order: 871
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/tf/nu/tfnuyoc07blonl516kiwmpj01gpp"
+              - id: '50'
+                type: slides
+                attributes:
+                  order: 582
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/2t/ob/2tob0xvayvfswe07c8uqbs5wp7ln"
+              - id: '51'
+                type: slides
+                attributes:
+                  order: 573
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/2e/8g/2e8gnuzqjf7shk455etz4o755qjo"
+              - id: '52'
+                type: slides
+                attributes:
+                  order: 842
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/zs/s1/zss14k7f3ge5me7orq8ozpv7954w"
+              - id: '53'
+                type: slides
+                attributes:
+                  order: 204
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/9b/d6/9bd6n1sk3rqq45ur08fax34hn0b0"
+              - id: '54'
+                type: slides
+                attributes:
+                  order: 217
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/ge/6e/ge6euy6e7mw1g0j6hy4o3g0cvbwx"
+              - id: '55'
+                type: slides
+                attributes:
+                  order: 916
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/af/7c/af7c877a2p6yufzys4rubtr1vuw4"
+              - id: '56'
+                type: slides
+                attributes:
+                  order: 784
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/tj/lf/tjlff29sx01ljva1z3sqmkkjjl7e"
+              - id: '57'
+                type: slides
+                attributes:
+                  order: 505
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/mv/1n/mv1ndnlfjuzvdd8tbcex2m4q0act"
+              - id: '58'
+                type: slides
+                attributes:
+                  order: 154
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/xr/yu/xryudyfzypszfgoz803csluwm512"
+              - id: '59'
+                type: slides
+                attributes:
+                  order: 264
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/pt/un/ptuntjufc5wja3vcnq0aa1bbfjqa"
+              - id: '60'
+                type: slides
+                attributes:
+                  order: 162
+                  image: "/home/chocolatito/Aceleracion/final/OT151-SERVER/tmp/storage/i4/u4/i4u43mwmi05dn9zwdx3sofgz9syk"
+  "/api/v1/testimonials":
+    post:
+      summary: Create a testimonial
+      tags:
+      - Testimonial
+      consumes:
+      - application/json
+      security:
+      - JWT: {}
+      parameters:
+      - name: Authorization
+        in: header
+        type: apiKey
+      - name: params
+        in: body
+        schema:
+          type: object
+          properties:
+            testimonial:
+              type: object
+              properties:
+                name:
+                  type: string
+                content:
+                  type: string
+              required:
+              - name
+              - content
+          required:
+          - testimonial
+      produces:
+      - application/json
+      responses:
+        '201':
+          description: Testimonial created
+          examples:
+            application/json:
+              data:
+                id: '485'
+                type: testimonial
+                attributes:
+                  name: Adam Pinkman
+                  content: Tentacles mortal eldritch unmentionable.
+        '422':
+          description: Testimonial creation failed for parameter missing
+          examples:
+            application/json:
+              message: 'Validation failed: Name can''t be blank, Name is too short
+                (minimum is 2 characters), Content can''t be blank, Content is too
+                short (minimum is 5 characters)'
+    get:
+      summary: Fetch testimonials
+      tags:
+      - Testimonial
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Testimonial found
+          schema:
+            type: object
+            properties:
+              Testimonial:
+                type: object
+                items:
+                  "$ref": "#/definitions/Testimonial"
+          examples:
+            application/json:
+              data:
+              - id: '1'
+                type: testimonial
+                attributes:
+                  name: Tomás Cantillo
+                  content: Squamous lurk shunned singular nameless decadent.
+              - id: '2'
+                type: testimonial
+                attributes:
+                  name: Bob Balistreri
+                  content: Praesentium modi non explicabo.
+              - id: '3'
+                type: testimonial
+                attributes:
+                  name: Prof. Vinita Paucek
+                  content: Rem quia et esse.
+              - id: '4'
+                type: testimonial
+                attributes:
+                  name: Pricilla Jakubowski
+                  content: Quibusdam rem est provident.
+              - id: '5'
+                type: testimonial
+                attributes:
+                  name: Simon Kertzmann
+                  content: Laborum necessitatibus nam nisi.
+              - id: '6'
+                type: testimonial
+                attributes:
+                  name: Kera Pacocha
+                  content: Laboriosam asperiores magni sint.
+              - id: '7'
+                type: testimonial
+                attributes:
+                  name: Mohamed Runolfsson
+                  content: Praesentium veniam veritatis aliquid.
+              - id: '8'
+                type: testimonial
+                attributes:
+                  name: Jenette Satterfield
+                  content: Est aperiam rem animi.
+              - id: '9'
+                type: testimonial
+                attributes:
+                  name: Benjamin Hessel
+                  content: Itaque odio nesciunt repellendus.
+              - id: '10'
+                type: testimonial
+                attributes:
+                  name: Tyrone Turcotte
+                  content: Voluptates non tempora et.
+              links:
+                first: "/api/v1/testimonials?page=1"
+                prev: "/api/v1/testimonials"
+                current: "/api/v1/testimonials?page=1"
+                next: "/api/v1/testimonials?page=2"
+                last: "/api/v1/testimonials?page=50"
+  "/api/v1/testimonials?page={page}":
+    get:
+      summary: Fetch testimonials
+      tags:
+      - Testimonial
+      produces:
+      - application/json
+      parameters:
+      - name: page
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: Testimonial found
+          schema:
+            type: object
+            properties:
+              Testimonial:
+                type: object
+                items:
+                  "$ref": "#/definitions/Testimonial"
+          examples:
+            application/json:
+              data:
+              - id: '31'
+                type: testimonial
+                attributes:
+                  name: Hugh Block II
+                  content: Itaque omnis libero officia.
+              - id: '32'
+                type: testimonial
+                attributes:
+                  name: Mr. Lacresha Bosco
+                  content: Dolorem consequatur natus eum.
+              - id: '33'
+                type: testimonial
+                attributes:
+                  name: Jina Mann
+                  content: Ea quisquam aut beatae.
+              - id: '34'
+                type: testimonial
+                attributes:
+                  name: Johnie Breitenberg VM
+                  content: Aut ipsum natus id.
+              - id: '35'
+                type: testimonial
+                attributes:
+                  name: Otto Carroll
+                  content: Provident iusto ratione reprehenderit.
+              - id: '36'
+                type: testimonial
+                attributes:
+                  name: Dewayne Jakubowski
+                  content: Illum rerum quas est.
+              - id: '37'
+                type: testimonial
+                attributes:
+                  name: Abram Muller
+                  content: Inventore corporis ipsam quis.
+              - id: '38'
+                type: testimonial
+                attributes:
+                  name: Ms. Gertude Morissette
+                  content: Eum minus atque at.
+              - id: '39'
+                type: testimonial
+                attributes:
+                  name: Cameron O'Hara
+                  content: Magnam est tempora vel.
+              - id: '40'
+                type: testimonial
+                attributes:
+                  name: Jeneva Pfeffer
+                  content: Quibusdam animi id saepe.
+              links:
+                first: "/api/v1/testimonials?page=1"
+                prev: "/api/v1/testimonials?page=3"
+                current: "/api/v1/testimonials?page=4"
+                next: "/api/v1/testimonials?page=5"
+                last: "/api/v1/testimonials?page=53"
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
       default: www.example.com
 definitions:
-  Member:
+  Slide:
     type: object
     properties:
       id:
         type: integer
-        example: '100'
-      name:
-        type: string
-        example: test
-      description:
-        type: string
-        example: test
+        example: '1'
+      order:
+        type: integer
+        example: '1'
       image:
         type: string
         example: "/img/file.jpg"
+    Announcement:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: '1'
+        name:
+          type: string
+          example: name
+        description:
+          type: string
+          example: description
+        announcement_type:
+          type: string
+          example: announcement_type
+        category_id:
+          type: integer
+          example: '1'
+    Testimonial:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: '1'
+        name:
+          type: string
+          example: name
+        description:
+          type: string
+          example: description
+        announcement_type:
+          type: string
+          example: announcement_type
+        category_id:
+          type: integer
+          example: '1'
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: '100'
+        name:
+          type: string
+          example: test
+        description:
+          type: string
+          example: test
+        image:
+          type: string
+          example: "/img/file.jpg"
+        content:
+          type: string
+          example: description
+    securityDefinitions:
+      JWT:
+        description: Json Web Token
+        name: Authorization
+        in: header
+        type: apiKey
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjowLCJleHAiOjE2NDc5ODcyNTZ9.u9CZX_esEQjW1wFm5H5Usvqn0qqUPncs1Bv_TYvXyYE

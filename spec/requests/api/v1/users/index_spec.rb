@@ -19,7 +19,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
       it 'returns all users' do
         # admin_header create a user with 'admin' role
-        expect(body_json.size).to eq(11)
+        expect(body_json.size).to eq(User.all.count)
       end
     end
 

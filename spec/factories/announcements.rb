@@ -38,12 +38,18 @@ FactoryBot.define do
       discarded_at { rand(1..1_000_000).days.ago }
     end
 
-    trait :with_image do
-      after :create do |announcement|
-        file_path = Rails.root.join('spec/factories_files/test.png'), 'image/png'
-        file = fixture_file_upload(file_path, 'image/png')
-        announcement.image.attach(file)
-      end
+    # trait :with_image do
+    #   after :create do |announcement|
+    #     file_path = Rails.root.join('spec/factories_files/test.png'), 'image/png'
+    #     file = fixture_file_upload(file_path, 'image/png')
+    #     announcement.image.attach(file)
+    #   end
+    # end
+    after(:build) do |announcement|
+      announcement.image.attach(
+        io: File.open(Rails.root.join('spec/factories_files/test.png')),
+        filename: 'test.png', content_type: 'image/jpeg'
+      )
     end
   end
 end
