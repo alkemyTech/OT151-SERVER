@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'swagger_helper'
+
 describe 'Slides API V1 Docs', type: :request, swagger_doc: 'v1/swagger.yaml' do
   let(:Authorization) { admin_header }
 
@@ -16,7 +17,7 @@ describe 'Slides API V1 Docs', type: :request, swagger_doc: 'v1/swagger.yaml' do
 
         schema type: :object, properties: {
           slide: {
-            type: :object,
+            type: :array,
             items: { '$ref' => '#/definitions/Slide' }
           }
         }

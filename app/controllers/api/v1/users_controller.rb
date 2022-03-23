@@ -24,9 +24,6 @@ module Api
       end
 
       def update
-        
-        binding.pry
-        
         @user.update!(user_params)
         render json: serialize_user, status: :ok
       end

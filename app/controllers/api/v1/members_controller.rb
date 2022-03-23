@@ -5,7 +5,6 @@ module Api
     class MembersController < ApplicationController
       before_action :authenticate_with_token!, only: %i[create]
 
-
       def index
         @members = Member.kept.page(params[:page])
         @options = get_links_serializer_options('api_v1_members_path', @members)
@@ -18,11 +17,14 @@ module Api
         @member.save!
         render json: serialize_members(@member), status: :created
       end
+
       private
 
       def member_params
-        params.require(:member).permit(:name, :description, :facebook_url, :instagram_url, :linkedin_url)
+        params.require(:member).permit(:name, :description, :facebook_url, :instagram_url,
+                                       :linkedin_url)
       end
+
       def serialize_members(*args)
         MembersSerializer.new(*args).serializable_hash.to_json
       end
