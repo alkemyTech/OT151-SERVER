@@ -297,9 +297,9 @@ definitions:
       name:
         type: string
         example: name
-      description:
+      content:
         type: string
-        example: description
+        example: content
       announcement_type:
         type: string
         example: announcement_type
@@ -351,4 +351,4 @@ definitions:
     properties:
       token:
         type: string
-        example: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjowLCJleHAiOjE2NDgxNTYzMTV9.xz_nSb2bBUpsqx4QDQPArCzND7XRQMi7dJzjoGg0yY0
+        example: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjowLCJleHAiOjE2NDg0MjI1NjF9.p0IeYf6yiScQ5uDOvWKaKo3V9tsHr1sOIbWoVfd5EDU

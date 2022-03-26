@@ -18,9 +18,11 @@ module Api
         @user = User.new(user_params)
         @user.role = Role.find_or_create_by!(name: 'user', description: 'usuario de la aplicacion')
         @user.save!
-        token = JsonWebToken.encode(user_id: @user.id)
+        # token = JsonWebToken.encode(user_id: @user.id)
+        @options = { meta: { jwt: JsonWebToken.encode(user_id: @user.id) } }
         UserWelcome.with(user: @user).send_user_welcome.deliver_later
-        render json: { serialize_user: serialize_user, token: token }, status: :created
+        # render json: { serialize_user: serialize_user, token: token }, status: :created
+        render json: serialize_user(@user, @options), status: :created
       end
 
       def update
@@ -40,8 +42,12 @@ module Api
         @user = User.find(params[:id])
       end
 
-      def serialize_user
-        UserSerializer.new(@user).serializable_hash.to_json
+      # def serialize_user
+      #   UserSerializer.new(@user).serializable_hash.to_json
+      # end
+
+      def serialize_user(*args)
+        UserSerializer.new(*args).serializable_hash.to_json
       end
 
       def user_params

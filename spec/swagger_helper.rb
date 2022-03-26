@@ -46,7 +46,7 @@ RSpec.configure do |config|
           properties: {
             id: { type: :integer, example: '1' },
             name: { type: :string, example: 'name' },
-            description: { type: :string, example: 'description' },
+            content: { type: :string, example: 'content' },
             announcement_type: { type: :string, example: 'announcement_type' },
             category_id: { type: :integer, example: '1' }
           }
